@@ -11,7 +11,7 @@ class Limit:
                 cls = self.__class__.__name__
                 return f"{cls}('{self.name}', {self.impact}, {self.limit}, {self.state})"
                 
-        def normal(self, state: bool, impact: float, limit: float) -> float :
+        def __normal(self, state: bool, impact: float, limit: float) -> float :
                 if state == None or impact == None:
                         return None
                 else:
@@ -27,10 +27,10 @@ class Limit:
                                         return 1 - abs((impact - limit)/limit)
         
         def norm(self) -> float:
-                return self.normal(self.state, self.impact, self.limit)
+                return self.__normal(self.state, self.impact, self.limit)
 
         def norm_max(self) -> float:
-                return self.normal(False, self.max, self.limit)
+                return self.__normal(False, self.max, self.limit)
 
 
 class Subsystem:

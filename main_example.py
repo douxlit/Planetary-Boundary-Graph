@@ -1,4 +1,4 @@
-from Graph_Diag import *
+from PB_Graph import *
 import matplotlib.pyplot as plt
 
 #Limits
@@ -17,7 +17,7 @@ Water = Subsystem('Water', [Water_surf, Water_under])
 Climate = Subsystem('Climate', [Emissions, Empreinte])
 Biosphere = Subsystem('Biosphere', [Biosphere_integrity, Natural_area])
 Aerosol = Subsystem('Aerosol', [Aerosol_limit])
-Flux_Biogeo = Subsystem('Flux biogéochimique', [Azote, Phosphore])
+Flux_Biogeo = Subsystem('Flux biogeochimique', [Azote, Phosphore])
 
 #System
 Metropole_Lyon = System('Metropole de Lyon', [Aerosol, Biosphere, Climate, Flux_Biogeo, Water])
