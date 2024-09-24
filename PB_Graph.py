@@ -66,7 +66,7 @@ class System:
                         names.append(s.name)
                 return names
 
-        def plot(self) :
+        def plot(self, label=True) :
                 import numpy as np
                 import matplotlib.pyplot as plt
                 import matplotlib.colors as mcolors
@@ -152,7 +152,10 @@ class System:
                 ax.grid(True, linewidth=0)
                 angles = np.degrees(theta)
                 ax.set_thetagrids(angles)
-                ax.set_xticklabels(self.names())  # Labels des ticks
+                if label :
+                        ax.set_xticklabels(self.names())  # Labels des ticks
+                else :
+                        ax.set_xticklabels([])  # Labels des ticks
                 ax.set_rticks([0, max(m.floor(H)+1,2)])
 
                 # Ajouter manuellement les lignes theta
