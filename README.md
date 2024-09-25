@@ -1,4 +1,5 @@
 # Planetary-Boundary-Graph
+![Image PB global state](/PB_Global_State.png "Planetary boundaries global state (Richardson and al. 2023)")
 Python code to create a graph of the planetary boundaries state (at either a global or local scale).
 
 Code file : PB_Graph.py

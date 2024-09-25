@@ -39,5 +39,5 @@ Land_use = Subsystem('Land system change', [Land_syst_change])
 
 #System
 Metropole_Lyon = System('Metropole de Lyon', [Ozone, Nov_Entity, Climate, Biosphere, Land_use, Water, Flux_Biogeo, Acidification, Aerosol])
-ax = Metropole_Lyon.plot(label=True)               
+ax = Metropole_Lyon.plot(label=False)               
 plt.show()
