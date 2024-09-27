@@ -1,11 +1,12 @@
 
 class Limit:
-        def __init__(self, name: str, impact: float, limit: float, state: bool, max=None):
+        def __init__(self, name: str, impact: float, limit: float, state: bool, max=None, min=None):
                 self.name = name
                 self.impact = impact
                 self.limit = limit
                 self.state = state
                 self.max = max
+                self.min = min
         
         def __repr__(self) -> str:
                 cls = self.__class__.__name__
@@ -31,6 +32,9 @@ class Limit:
 
         def norm_max(self) -> float:
                 return self.__normal(False, self.max, self.limit)
+        
+        def norm_min(self) -> float:
+                return self.__normal(True, self.min, self.limit)
 
 
 class Subsystem:
@@ -66,7 +70,7 @@ class System:
                         names.append(s.name)
                 return names
 
-        def plot(self, label=True) :
+        def plot(self, label=True, resize=1) :
                 import numpy as np
                 import matplotlib.pyplot as plt
                 import matplotlib.colors as mcolors
@@ -105,14 +109,15 @@ class System:
 
                         for l in s.limits :
                                 height = l.norm()
-                                M = l.norm_max()
+                                Mx = l.norm_max()
+                                Mn = l.norm_min()
 
                                 if height != None :
                                         #manage upper boundary
                                         if height > H :
                                                 H = height
-                                                if M != None and M > H :
-                                                        H = M
+                                                if Mx != None and Mx > H :
+                                                        H = Mx
                                         none = 1
                                         num_segments = 1000
                                         segment_height = height/num_segments
@@ -135,9 +140,12 @@ class System:
                                         for i in range(num_segments):
                                                 ax.bar(t, segment_height, width=w, color=colors[i], bottom=i * segment_height)
 
-                                        # Tracer un segment au max
-                                        if M != None :
-                                                ax.bar(t, 0.025, width=w, color='indigo', bottom = M)
+                                        # Tracer un segment au max et au min
+                                        if Mx != None :
+                                                ax.bar(t, 0.025, width=w, color='indigo', bottom = Mx)
+                                        
+                                        if Mn != None :
+                                                ax.bar(t, 0.025, width=w, color='green', bottom = Mn)
                         
                         if none == 0 :
                                 s.name = s.name + '\n(not yet quantified)'
@@ -156,7 +164,7 @@ class System:
                         ax.set_xticklabels(self.names())  # Labels des ticks
                 else :
                         ax.set_xticklabels([])  # Labels des ticks
-                ax.set_rticks([0, max(m.floor(H)+1,2)])
+                ax.set_ylim(top=max(m.floor(H)+1,2)*resize+1)
 
                 # Ajouter manuellement les lignes theta
                 theta2 = list(np.linspace(np.pi/Nb_syst, 2 * np.pi + np.pi/Nb_syst, Nb_syst, endpoint=False))
