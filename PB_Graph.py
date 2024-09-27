@@ -164,7 +164,7 @@ class System:
                         ax.axvline(x=angle, color='grey', linestyle='-', linewidth=1)
 
                 for angle in t_manip :
-                        ax.axvline(x=angle, color='white', linestyle='-', linewidth=0.5)
+                        ax.axvline(x=angle, color='grey', linestyle='-', linewidth=0.5, alpha=0.25)
 
 
                 # Enlever le contour du cercle extérieur
